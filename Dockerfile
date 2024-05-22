@@ -8,7 +8,7 @@ ENV PASSWORD=changeme
 
 # Install OpenSSH server and clean up
 RUN apt-get update \
-    && apt-get install -y openssh-server iputils-ping telnet iproute2 default-jdk\
+    && apt-get install -y openssh-server iputils-ping telnet iproute2 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -18,6 +18,11 @@ RUN mkdir -p /run/sshd \
 
 # Expose SSH port
 EXPOSE 22
+
+# Install Java
+RUN apt-get update \
+    && apt-get install -y && default-jdk-headless > /dev/null \
+    && apt-get clean \
 
 # Create the non-root user with the ability to set a password and authorized keys using environment variables
 RUN useradd -ms /bin/bash $SSH_USERNAME
