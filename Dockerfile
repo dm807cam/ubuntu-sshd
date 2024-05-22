@@ -25,6 +25,9 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+# Verify Java installation
+RUN java -version
+
 # Create the non-root user with the ability to set a password and authorized keys using environment variables
 RUN useradd -ms /bin/bash $SSH_USERNAME
 
