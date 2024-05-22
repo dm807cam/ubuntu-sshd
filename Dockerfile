@@ -21,8 +21,9 @@ EXPOSE 22
 
 # Install Java
 RUN apt-get update \
-    && apt-get install -y && default-jdk-headless > /dev/null \
+    && apt-get install -y default-jdk-headless \
     && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Create the non-root user with the ability to set a password and authorized keys using environment variables
 RUN useradd -ms /bin/bash $SSH_USERNAME
